@@ -1,11 +1,11 @@
-package com.psd.nytimes;
+package com.psd.nytimes.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +15,7 @@ import android.widget.EditText;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.psd.nytimes.R;
 import com.psd.nytimes.adapters.ArticleAdapter;
 import com.psd.nytimes.models.Article;
 
@@ -51,6 +52,15 @@ public class SearchActivity extends AppCompatActivity {
         rvArticles.setLayoutManager(new GridLayoutManager(this, 3));
         rvArticles.setHasFixedSize(true);
         rvArticles.setAdapter(articleAdapter);
+        articleAdapter.setOnItemClickListener(new ArticleAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                Intent i = new Intent(SearchActivity.this, ArticleActivity.class);
+                Article article = articles.get(position);
+                i.putExtra("article", article);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -69,6 +79,7 @@ public class SearchActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            //Intent i = new Intent(this, SettingsActivity.class)
             return true;
         }
 
@@ -93,8 +104,6 @@ public class SearchActivity extends AppCompatActivity {
                     articleResults = response.getJSONObject("response").getJSONArray("docs");
                     articles.addAll(Article.fromJSONArray(articleResults));
                     articleAdapter.notifyDataSetChanged();
-
-                    Log.d("DEBUG", articles.get(2).getThumbnail());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
