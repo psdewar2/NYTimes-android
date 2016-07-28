@@ -2,15 +2,15 @@ package com.psd.nytimes.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -31,8 +31,6 @@ public class SearchActivity extends AppCompatActivity {
     ArrayList<Article> articles;
     ArticleAdapter articleAdapter;
 
-    EditText etQuery;
-    Button btnSearch;
     RecyclerView rvArticles;
 
     @Override
@@ -42,8 +40,6 @@ public class SearchActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        etQuery = (EditText) findViewById(R.id.etQuery);
-        btnSearch = (Button) findViewById(R.id.btnSearch);
         rvArticles = (RecyclerView) findViewById(R.id.rvArticles);
         articles = new ArrayList<>();
 
@@ -67,6 +63,29 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        // get menu items
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // perform query here by fetching the data remotely
+                fetchArticles(query);
+
+                // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
+                // see https://code.google.com/p/android/issues/detail?id=24599
+                searchView.clearFocus();
+
+                return true;
+
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 
@@ -78,7 +97,7 @@ public class SearchActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
             //Intent i = new Intent(this, SettingsActivity.class)
             return true;
         }
@@ -86,8 +105,7 @@ public class SearchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onArticleSearch(View view) {
-        String query = etQuery.getText().toString();
+    public void fetchArticles(String query) {
         AsyncHttpClient client = new AsyncHttpClient();
         //String url = "http://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=2b2963c8aeed4486a0e235eb43dc5160";
         String url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";

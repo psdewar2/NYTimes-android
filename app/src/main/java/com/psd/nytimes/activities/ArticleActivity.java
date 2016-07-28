@@ -20,7 +20,7 @@ public class ArticleActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         wvArticle = (WebView) findViewById(R.id.wvArticle);
-        Article article = (Article) getIntent().getSerializableExtra("article");
+        Article article = getIntent().getParcelableExtra("article");
 
         wvArticle.setWebViewClient(new WebViewClient() {
             @Override

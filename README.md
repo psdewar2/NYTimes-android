@@ -15,7 +15,7 @@ Completed user stories:
  * [] Required: Users can tap on any article in results to view the contents in an embedded browser.
  * [] Required: Users can scroll down infinitely to continue loading more news articles. The maximum number of articles is limited by the API search.
  * [] Optional:
- * [] Optional:
+ * [x] Optional: ActionBar SearchView used for searching instead of EditText
  * [] Optional:
  * [] Optional:
  * [] Optional:

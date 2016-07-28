@@ -1,16 +1,18 @@
 package com.psd.nytimes.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by PSD on 7/25/16.
  */
-public class Article implements Serializable {
+public class Article implements Parcelable {
 
     String webUrl, headline, thumbnail;
 
@@ -55,4 +57,35 @@ public class Article implements Serializable {
         }
         return results;
     }
+
+    // Parcelable interface implemented
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.webUrl);
+        dest.writeString(this.headline);
+        dest.writeString(this.thumbnail);
+    }
+
+    protected Article(Parcel in) {
+        this.webUrl = in.readString();
+        this.headline = in.readString();
+        this.thumbnail = in.readString();
+    }
+
+    public static final Creator<Article> CREATOR = new Creator<Article>() {
+        @Override
+        public Article createFromParcel(Parcel source) {
+            return new Article(source);
+        }
+
+        @Override
+        public Article[] newArray(int size) {
+            return new Article[size];
+        }
+    };
 }
