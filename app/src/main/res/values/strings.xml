@@ -4,4 +4,7 @@
     <string name="hint">Find article...</string>
     <string name="search">Search</string>
     <string name="title_activity_article">ArticleActivity</string>
+    <string name="beginDate">BeginDate</string>
+    <string name="sortOrder">Sort Order</string>
+    <string name="newsDesk">News Desk Values</string>
 </resources>

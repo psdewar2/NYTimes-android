@@ -40,6 +40,7 @@ public class SearchActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         rvArticles = (RecyclerView) findViewById(R.id.rvArticles);
         articles = new ArrayList<>();
 
@@ -97,8 +98,9 @@ public class SearchActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
-            //Intent i = new Intent(this, SettingsActivity.class)
+        if (id == R.id.action_settings) {
+            Intent i = new Intent(this, SettingsActivity.class);
+            startActivityForResult(i, 1);
             return true;
         }
 
@@ -133,5 +135,14 @@ public class SearchActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //gets result from EditItemActivity
+        if (requestCode == resultCode) {
+            String query = data.getExtras().getString("query");
+            fetchArticles(query);
+        }
     }
 }
