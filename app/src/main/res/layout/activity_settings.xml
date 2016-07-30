@@ -23,9 +23,10 @@
         android:text="@string/beginDate"
         android:id="@+id/tvBeginDate"
         android:layout_below="@+id/toolbar"
+        android:padding="16dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="75dp" />
+        android:layout_marginTop="60dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,9 +35,20 @@
         android:text="@string/sortOrder"
         android:id="@+id/tvSortOrder"
         android:layout_below="@+id/tvBeginDate"
+        android:padding="16dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="75dp" />
+        android:layout_marginTop="60dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:ems="10"
+        android:id="@+id/etBeginDate"
+        android:layout_alignTop="@+id/tvBeginDate"
+        android:layout_alignLeft="@+id/sortOrderSpinner"
+        android:layout_alignStart="@+id/sortOrderSpinner" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,18 +56,60 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/newsDesk"
         android:id="@+id/tvNewsDeskValues"
+        android:padding="16dp"
         android:layout_below="@+id/tvSortOrder"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="75dp" />
+        android:layout_marginTop="60dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sortOrderSpinner"
+        android:entries="@array/array_sortOrder"
+        android:layout_alignTop="@+id/tvSortOrder"
+        android:layout_alignLeft="@+id/btnSave"
+        android:layout_alignStart="@+id/btnSave"
+        android:layout_marginTop="14dp"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/arts"
+        android:id="@+id/cbArts"
+        android:layout_below="@+id/sortOrderSpinner"
+        android:layout_marginTop="84dp"
+        android:layout_alignLeft="@+id/sortOrderSpinner"
+        android:layout_alignStart="@+id/sortOrderSpinner"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fashion"
+        android:id="@+id/cbFashion"
+        android:layout_below="@+id/cbArts"
+        android:layout_alignLeft="@+id/cbArts"
+        android:layout_alignStart="@+id/cbArts"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sports"
+        android:id="@+id/cbSports"
+        android:layout_below="@+id/cbFashion"
+        android:layout_alignLeft="@+id/cbFashion"
+        android:layout_alignStart="@+id/cbFashion"
+        android:checked="false" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:id="@+id/saveButton"
+        android:id="@+id/btnSave"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginBottom="16dp" />
 
 </RelativeLayout>

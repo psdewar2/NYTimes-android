@@ -9,10 +9,10 @@ Time spent:
 Completed user stories:
 
  * [x] Required: Users can enter a search query that will display a grid of news articles using the thumbnail and headline from the New York Times Search API.
- * [] Required: Users can click on settings which allows selection of advanced search options to filter results.
- * [] Required: Users can configure advanced search filters such as begin date, news desk values, and sort order.
- * [] Required: Subsequent searches will have any filters applied to the search results.
- * [] Required: Users can tap on any article in results to view the contents in an embedded browser.
+ * [x] Required: Users can click on settings which allows selection of advanced search options to filter results.
+ * [x] Required: Users can configure advanced search filters such as begin date, news desk values, and sort order.
+ * [x] Required: Subsequent searches will have any filters applied to the search results.
+ * [x] Required: Users can tap on any article in results to view the contents in an embedded browser.
  * [] Required: Users can scroll down infinitely to continue loading more news articles. The maximum number of articles is limited by the API search.
  * [] Optional:
  * [x] Optional: ActionBar SearchView used for searching instead of EditText

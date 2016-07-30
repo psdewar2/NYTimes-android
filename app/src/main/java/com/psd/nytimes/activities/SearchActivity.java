@@ -1,6 +1,8 @@
 package com.psd.nytimes.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +10,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -30,7 +34,6 @@ import cz.msebera.android.httpclient.Header;
 public class SearchActivity extends AppCompatActivity {
     ArrayList<Article> articles;
     ArticleAdapter articleAdapter;
-
     RecyclerView rvArticles;
 
     @Override
@@ -112,9 +115,27 @@ public class SearchActivity extends AppCompatActivity {
         //String url = "http://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=2b2963c8aeed4486a0e235eb43dc5160";
         String url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
         RequestParams params = new RequestParams();
+        SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        String beginDate = sharedPreferences.getString("begin_date", "");
+        String sortOrder = sharedPreferences.getString("sort", "");
+        boolean artsChecked = sharedPreferences.getBoolean("cbArtsChecked", false);
+        boolean fashionChecked = sharedPreferences.getBoolean("cbFashionChecked", false);
+        boolean sportsChecked = sharedPreferences.getBoolean("cbSportsChecked", false);
+
+        if (!beginDate.equals("")) params.put("begin_date", beginDate);
+        if (!sortOrder.equals("")) params.put("sort", sortOrder);
+        StringBuilder newsDeskValues = new StringBuilder();
+        if (artsChecked) newsDeskValues.append("\"Arts\"");
+        if(fashionChecked) newsDeskValues.append("\"Fashion & Style\"");
+        if(sportsChecked) newsDeskValues.append("\"Sports\"");
+
+        params.put("fq", "news_desk:("+newsDeskValues+")");
+
         params.put("api-key", "2b2963c8aeed4486a0e235eb43dc5160");
         params.put("page", 0);
         params.put("q", query);
+
+        Log.d("PARAMS", params.toString());
         client.get(url, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -141,8 +162,8 @@ public class SearchActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //gets result from EditItemActivity
         if (requestCode == resultCode) {
-            String query = data.getExtras().getString("query");
-            fetchArticles(query);
+            //display that settings have been saved
+            Toast.makeText(this, "Saved! Refresh your search.", Toast.LENGTH_SHORT).show();
         }
     }
 }

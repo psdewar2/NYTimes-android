@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.loopj.android:android-async-http:1.4.9' //http client
     compile 'com.squareup.picasso:picasso:2.5.2' //works with images
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }

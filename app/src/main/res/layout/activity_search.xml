@@ -7,15 +7,22 @@
     android:fitsSystemWindows="true"
     tools:context=".activities.SearchActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="News Article Search"
-        app:titleTextColor="@android:color/white"
-        android:background="@android:color/holo_purple">
-    </android.support.v7.widget.Toolbar>
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="News Article Search"
+            app:titleTextColor="@android:color/white"
+            android:background="@android:color/holo_purple">
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_search" />
 
