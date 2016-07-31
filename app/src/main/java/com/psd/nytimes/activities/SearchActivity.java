@@ -21,12 +21,14 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.psd.nytimes.EndlessRecyclerViewScrollListener;
 import com.psd.nytimes.R;
+import com.psd.nytimes.SettingsFragment;
 import com.psd.nytimes.adapters.ArticleAdapter;
 import com.psd.nytimes.models.Article;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -66,7 +68,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onItemClick(View itemView, int position) {
                 Intent i = new Intent(SearchActivity.this, ArticleActivity.class);
                 Article article = articles.get(position);
-                i.putExtra("article", article);
+                i.putExtra("article", Parcels.wrap(article));
                 startActivity(i);
             }
         });

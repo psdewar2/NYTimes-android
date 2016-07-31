@@ -22,7 +22,7 @@ Completed user stories:
  * [] Stretch: RecyclerView is used with the StaggeredGridLayoutManager to improve displaying the grid of image results.
  * [] Stretch: RecyclerView is made heterogenous for different news articles that only have text or have text with thumbnails.
  * [] Stretch: ButterKnife annotation library is applied to reduce view boilerplate.
- * [] Stretch: Parceler is used to make Article objects parcelable instead of serializable.
+ * [x] Stretch: Parceler is used to make Article objects parcelable instead of serializable.
  * [] Stretch: All icon drawables and other static image assets are replaced with vector drawables where appropriate.
  * [] Stretch: Data binding support module is leveraged to bind data into one or more activity layout templates.
  * [] Stretch: Picasso is replaced with Glide for more efficient image rendering.

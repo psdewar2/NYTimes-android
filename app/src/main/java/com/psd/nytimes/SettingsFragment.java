@@ -1,4 +1,4 @@
-package com.psd.nytimes.activities;
+package com.psd.nytimes;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -15,8 +15,6 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-
-import com.psd.nytimes.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
