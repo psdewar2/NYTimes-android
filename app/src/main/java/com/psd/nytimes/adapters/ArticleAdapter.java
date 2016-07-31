@@ -16,6 +16,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by PSD on 7/25/16.
  */
@@ -36,12 +39,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     //item_article.xml
     public static class ArticleViewHolder extends RecyclerView.ViewHolder {
-        ImageView articleImageView;
-        TextView tvTitle;
+        @BindView(R.id.articleImageView) ImageView articleImageView;
+        @BindView(R.id.tvTitle) TextView tvTitle;
         public ArticleViewHolder(View view) {
             super(view);
-            articleImageView = (ImageView) view.findViewById(R.id.articleImageView);
-            tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+            ButterKnife.bind(this, view);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 23
@@ -29,4 +29,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2' //works with images
     compile 'org.parceler:parceler-api:1.1.1' //makes objects parcelable
     apt 'org.parceler:parceler:1.1.1'
+    compile 'com.jakewharton:butterknife:8.2.1' //ButterKnife
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
 }

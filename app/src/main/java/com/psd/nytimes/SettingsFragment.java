@@ -20,12 +20,21 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public class SettingsFragment extends DialogFragment {
     String beginDate = "", beginDateDisplayed = "";
-    EditText etBeginDate;
-    Spinner spSortOrder;
-    Button btnSave;
-    CheckBox cbArts, cbFashion, cbSports;
+    @BindView(R.id.etBeginDate) EditText etBeginDate;
+    @BindView(R.id.sortOrderSpinner) Spinner spSortOrder;
+    @BindView(R.id.btnSave) Button btnSave;
+    @BindView(R.id.cbArts) CheckBox cbArts;
+    @BindView(R.id.cbFashion) CheckBox cbFashion;
+    @BindView(R.id.cbSports) CheckBox cbSports;
+
+    //fragments use Unbinders
+    private Unbinder unbinder;
 
     public SettingsFragment() {
         // Empty constructor is required for DialogFragment
@@ -59,11 +68,7 @@ public class SettingsFragment extends DialogFragment {
         final SharedPreferences.Editor editor = sharedPreferences.edit();
 
         //widgets
-        etBeginDate = (EditText) view.findViewById(R.id.etBeginDate);
-        spSortOrder = (Spinner) view.findViewById(R.id.sortOrderSpinner);
-        cbArts = (CheckBox) view.findViewById(R.id.cbArts);
-        cbFashion = (CheckBox) view.findViewById(R.id.cbFashion);
-        cbSports = (CheckBox) view.findViewById(R.id.cbSports);
+        unbinder = ButterKnife.bind(this, view);
 
         beginDate = sharedPreferences.getString("begin_date", "");
         beginDateDisplayed = sharedPreferences.getString("beginDateDisplayed", "");
@@ -128,5 +133,12 @@ public class SettingsFragment extends DialogFragment {
         }
 
     };
+
+    // When binding a fragment in onCreateView, set the views to null in onDestroyView.
+    // ButterKnife returns an Unbinder on the initial binding that has an unbind method to do this automatically.
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 
 }
