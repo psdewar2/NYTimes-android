@@ -3,42 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.psd.nytimes.activities.SettingsActivity">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="Settings"
-        app:titleTextColor="@android:color/white"
-        android:background="@android:color/holo_purple">
-    </android.support.v7.widget.Toolbar>
+    android:padding="24dp"
+    tools:context="com.psd.nytimes.activities.SettingsFragment">
 
     <TextView
+        android:id="@+id/tvBeginDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/beginDate"
-        android:id="@+id/tvBeginDate"
-        android:layout_below="@+id/toolbar"
-        android:padding="16dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="60dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/sortOrder"
-        android:id="@+id/tvSortOrder"
-        android:layout_below="@+id/tvBeginDate"
-        android:padding="16dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="60dp" />
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -46,21 +22,20 @@
         android:inputType="none"
         android:ems="10"
         android:id="@+id/etBeginDate"
-        android:layout_alignTop="@+id/tvBeginDate"
-        android:layout_alignLeft="@+id/sortOrderSpinner"
-        android:layout_alignStart="@+id/sortOrderSpinner" />
+        android:layout_below="@+id/tvBeginDate"
+        android:layout_alignLeft="@+id/tvBeginDate"
+        android:layout_alignStart="@+id/tvBeginDate" />
 
     <TextView
+        android:id="@+id/tvSortOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/newsDesk"
-        android:id="@+id/tvNewsDeskValues"
-        android:padding="16dp"
-        android:layout_below="@+id/tvSortOrder"
+        android:text="@string/sortOrder"
+        android:layout_below="@+id/etBeginDate"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="60dp" />
+        android:layout_marginTop="60dp"/>
 
     <Spinner
         android:layout_width="wrap_content"
@@ -68,19 +43,28 @@
         android:id="@+id/sortOrderSpinner"
         android:entries="@array/array_sortOrder"
         android:layout_alignTop="@+id/tvSortOrder"
-        android:layout_alignLeft="@+id/btnSave"
-        android:layout_alignStart="@+id/btnSave"
-        android:layout_marginTop="14dp"/>
+        android:layout_toRightOf="@+id/tvBeginDate"
+        android:layout_toEndOf="@+id/tvBeginDate" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/newsDesk"
+        android:id="@+id/tvNewsDeskValues"
+        android:layout_below="@+id/tvSortOrder"
+        android:layout_alignLeft="@+id/tvSortOrder"
+        android:layout_alignStart="@+id/tvSortOrder"
+        android:layout_marginTop="60dp" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/arts"
         android:id="@+id/cbArts"
-        android:layout_below="@+id/sortOrderSpinner"
-        android:layout_marginTop="84dp"
-        android:layout_alignLeft="@+id/sortOrderSpinner"
-        android:layout_alignStart="@+id/sortOrderSpinner"
+        android:layout_below="@+id/tvNewsDeskValues"
+        android:layout_alignLeft="@+id/etBeginDate"
+        android:layout_alignStart="@+id/etBeginDate"
         android:checked="false" />
 
     <CheckBox
@@ -107,7 +91,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
+        android:textColor="#FFF"
         android:id="@+id/btnSave"
+        android:background="@android:color/holo_purple"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp" />

@@ -2,13 +2,14 @@ package com.psd.nytimes.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -21,29 +22,50 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsFragment extends DialogFragment {
     String beginDate = "", beginDateDisplayed = "";
     EditText etBeginDate;
     Spinner spSortOrder;
     Button btnSave;
     CheckBox cbArts, cbFashion, cbSports;
 
+    public SettingsFragment() {
+        // Empty constructor is required for DialogFragment
+        // Make sure not to add arguments to the constructor
+        // Use `newInstance` instead as shown below
+    }
+
+    public static SettingsFragment newInstance(String title) {
+        SettingsFragment sdf = new SettingsFragment();
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        sdf.setArguments(args);
+        return sdf;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_settings, container);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // Fetch arguments from bundle and set title
+        String title = getArguments().getString("title", "Settings");
+        getDialog().setTitle(title);
+
         //get shared preferences to populate settings
-        SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
-        setContentView(R.layout.activity_settings);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         //widgets
-        etBeginDate = (EditText) findViewById(R.id.etBeginDate);
-        spSortOrder = (Spinner) findViewById(R.id.sortOrderSpinner);
-        cbArts = (CheckBox) findViewById(R.id.cbArts);
-        cbFashion = (CheckBox) findViewById(R.id.cbFashion);
-        cbSports = (CheckBox) findViewById(R.id.cbSports);
+        etBeginDate = (EditText) view.findViewById(R.id.etBeginDate);
+        spSortOrder = (Spinner) view.findViewById(R.id.sortOrderSpinner);
+        cbArts = (CheckBox) view.findViewById(R.id.cbArts);
+        cbFashion = (CheckBox) view.findViewById(R.id.cbFashion);
+        cbSports = (CheckBox) view.findViewById(R.id.cbSports);
 
         beginDate = sharedPreferences.getString("begin_date", "");
         beginDateDisplayed = sharedPreferences.getString("beginDateDisplayed", "");
@@ -52,7 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
         etBeginDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(SettingsActivity.this, date, myCalendar
+                new DatePickerDialog(getContext(), date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -67,11 +89,11 @@ public class SettingsActivity extends AppCompatActivity {
         cbFashion.setChecked(sharedPreferences.getBoolean("cbFashionChecked", false));
         cbSports.setChecked(sharedPreferences.getBoolean("cbSportsChecked", false));
 
-        btnSave = (Button) findViewById(R.id.btnSave);
+        btnSave = (Button) view.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent();
+                if (etBeginDate.getText().toString().equals("")) beginDate = etBeginDate.getText().toString();
                 editor.putString("begin_date", beginDate);
                 editor.putString("beginDateDisplayed", etBeginDate.getText().toString());
                 editor.putString("sort", spSortOrder.getSelectedItem().toString());
@@ -79,9 +101,7 @@ public class SettingsActivity extends AppCompatActivity {
                 editor.putBoolean("cbFashionChecked", cbFashion.isChecked());
                 editor.putBoolean("cbSportsChecked", cbSports.isChecked());
                 editor.apply(); //or commit will work here
-                int RES_CODE1 = 1;
-                setResult(RES_CODE1, i);
-                finish();
+                dismiss();
             }
         });
     }
@@ -108,27 +128,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             etBeginDate.setText(beginDateDisplayed);
         }
+
     };
 
-    //for news desk checkboxes
-//    public void onCheckboxClicked(View view) {
-//        // Is the view now checked?
-//        boolean checked = ((CheckBox) view).isChecked();
-//
-//        // Check which checkbox was clicked
-//        switch(view.getId()) {
-//            case R.id.cbArts:
-//                if (checked) cbArts.setChecked(true);
-//                else cbArts.setChecked(false);
-//                break;
-//            case R.id.cbFashion:
-//                if (checked) cbFashion.setChecked(true);
-//                else cbFashion.setChecked(false);
-//                break;
-//            case R.id.cbSports:
-//                if (checked) cbSports.setChecked(true);
-//                else cbSports.setChecked(false);
-//                break;
-//        }
-//    }
 }

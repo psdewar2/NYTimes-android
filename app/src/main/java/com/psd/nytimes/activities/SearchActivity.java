@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,7 +15,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -114,8 +114,9 @@ public class SearchActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this, SettingsActivity.class);
-            startActivityForResult(i, 1);
+            FragmentManager fm = getSupportFragmentManager();
+            SettingsFragment sf = SettingsFragment.newInstance("Settings");
+            sf.show(fm, "fragment_settings");
             return true;
         }
 
@@ -173,18 +174,16 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                Log.e("ERROR:" + statusCode, errorResponse.toString());
+                Log.e("ERROR:" + statusCode, errorResponse.toString());
             }
 
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //gets result from EditItemActivity
-        if (requestCode == resultCode) {
-            //display that settings have been saved
-            Toast.makeText(this, "Saved! Refresh your search.", Toast.LENGTH_SHORT).show();
-        }
-    }
+    /* Passing Data to Activity
+     * 1. Define an interface with methods that can be invoked to pass data result to the activity
+     * 2. Setup a view event which invokes the custom listener passing data through the method
+     * 3. Implement the interface in the Activity defining behavior for when the event is triggered
+     * NOTE: because data is being passed into and retrieved from SharedPreferences this is currently unnecessary
+     */
 }
