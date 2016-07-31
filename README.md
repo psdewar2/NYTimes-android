@@ -13,7 +13,7 @@ Completed user stories:
  * [x] Required: Users can configure advanced search filters such as begin date, news desk values, and sort order.
  * [x] Required: Subsequent searches will have any filters applied to the search results.
  * [x] Required: Users can tap on any article in results to view the contents in an embedded browser.
- * [] Required: Users can scroll down infinitely to continue loading more news articles. The maximum number of articles is limited by the API search.
+ * [x] Required: Users can scroll down infinitely to continue loading more news articles. The maximum number of articles is limited by the API search.
  * [] Optional:
  * [x] Optional: ActionBar SearchView used for searching instead of EditText
  * [] Optional:

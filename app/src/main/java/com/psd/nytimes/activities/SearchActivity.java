@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.psd.nytimes.EndlessRecyclerViewScrollListener;
 import com.psd.nytimes.R;
 import com.psd.nytimes.adapters.ArticleAdapter;
 import com.psd.nytimes.models.Article;
@@ -35,6 +36,7 @@ public class SearchActivity extends AppCompatActivity {
     ArrayList<Article> articles;
     ArticleAdapter articleAdapter;
     RecyclerView rvArticles;
+    String mainQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +45,22 @@ public class SearchActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         rvArticles = (RecyclerView) findViewById(R.id.rvArticles);
+
         articles = new ArrayList<>();
 
         //setting up recyclerview with adapter
         articleAdapter = new ArticleAdapter(this, articles);
-        rvArticles.setLayoutManager(new GridLayoutManager(this, 3));
+        final GridLayoutManager glm = new GridLayoutManager(this, 3);
+        rvArticles.setLayoutManager(glm);
         rvArticles.setHasFixedSize(true);
         rvArticles.setAdapter(articleAdapter);
+        rvArticles.addOnScrollListener(new EndlessRecyclerViewScrollListener(glm) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                fetchArticles(mainQuery, page);
+            }
+        });
         articleAdapter.setOnItemClickListener(new ArticleAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
@@ -75,7 +84,10 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // perform query here by fetching the data remotely
-                fetchArticles(query);
+                mainQuery = query;
+                articles.clear();
+                articleAdapter.notifyDataSetChanged();
+                fetchArticles(mainQuery, 0);
 
                 // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
                 // see https://code.google.com/p/android/issues/detail?id=24599
@@ -110,7 +122,7 @@ public class SearchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void fetchArticles(String query) {
+    public void fetchArticles(String query, int page) {
         AsyncHttpClient client = new AsyncHttpClient();
         //String url = "http://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=2b2963c8aeed4486a0e235eb43dc5160";
         String url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
@@ -125,14 +137,24 @@ public class SearchActivity extends AppCompatActivity {
         if (!beginDate.equals("")) params.put("begin_date", beginDate);
         if (!sortOrder.equals("")) params.put("sort", sortOrder);
         StringBuilder newsDeskValues = new StringBuilder();
-        if (artsChecked) newsDeskValues.append("\"Arts\"");
-        if(fashionChecked) newsDeskValues.append("\"Fashion & Style\"");
-        if(sportsChecked) newsDeskValues.append("\"Sports\"");
+        int count = 0;
+        if(artsChecked) {
+            newsDeskValues.append("\"Arts\"");
+            count++;
+        }
+        if(fashionChecked) {
+            newsDeskValues.append("\"Fashion & Style\"");
+            count++;
+        }
+        if(sportsChecked) {
+            newsDeskValues.append("\"Sports\"");
+            count++;
+        }
 
-        params.put("fq", "news_desk:("+newsDeskValues+")");
+        if (count > 0) params.put("fq", "news_desk:("+newsDeskValues+")");
 
         params.put("api-key", "2b2963c8aeed4486a0e235eb43dc5160");
-        params.put("page", 0);
+        params.put("page", page);
         params.put("q", query);
 
         Log.d("PARAMS", params.toString());
@@ -141,7 +163,6 @@ public class SearchActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray articleResults;
                 try {
-                    articles.clear();
                     articleResults = response.getJSONObject("response").getJSONArray("docs");
                     articles.addAll(Article.fromJSONArray(articleResults));
                     articleAdapter.notifyDataSetChanged();

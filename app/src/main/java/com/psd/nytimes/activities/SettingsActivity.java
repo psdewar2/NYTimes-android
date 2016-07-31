@@ -73,7 +73,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent();
                 editor.putString("begin_date", beginDate);
-                editor.putString("beginDateDisplayed", beginDateDisplayed);
+                editor.putString("beginDateDisplayed", etBeginDate.getText().toString());
                 editor.putString("sort", spSortOrder.getSelectedItem().toString());
                 editor.putBoolean("cbArtsChecked", cbArts.isChecked());
                 editor.putBoolean("cbFashionChecked", cbFashion.isChecked());
