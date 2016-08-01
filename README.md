@@ -4,7 +4,7 @@ NYTimes is an article search application for Android.
 
 Submitted by: Peyt S. Dewar II
 
-Time spent:
+Time spent: 18 hours total
 
 Completed user stories:
 
@@ -14,11 +14,11 @@ Completed user stories:
  * [x] Required: Subsequent searches will have any filters applied to the search results.
  * [x] Required: Users can tap on any article in results to view the contents in an embedded browser.
  * [x] Required: Users can scroll down infinitely to continue loading more news articles. The maximum number of articles is limited by the API search.
- * [] Optional: Robust error handling is added and network connectivity is checked. 
+ * [x] Optional: Robust error handling is added and network connectivity is checked. 
  * [x] Optional: ActionBar SearchView is used for searching instead of EditText.
- * [] Optional: Users can share a link to their friends or email it to themselves.
+ * [x] Optional: Users can share article links with friends or email it to themselves.
  * [x] Optional: SettingsActivity is replaced with a lightweight modal overlay.
- * [] Optional: UI is improved through styling and coloring.
+ * [x] Optional: UI is improved through styling and coloring.
  * [] Stretch: RecyclerView is used with the StaggeredGridLayoutManager to improve displaying the grid of image results.
  * [] Stretch: RecyclerView is made heterogenous for different news articles that only have text or have text with thumbnails.
  * [x] Stretch: ButterKnife annotation library is applied to reduce view boilerplate.
@@ -37,6 +37,8 @@ Completed user stories:
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
+
+Spent some time trying to figure out how to get the share button to work.
 
 ## License
 
