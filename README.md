@@ -32,7 +32,7 @@ Completed user stories:
 
 ## Video Walkthrough 
 
-![Video Walkthrough](__.gif)
+![Video Walkthrough] (weektwoDemo.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

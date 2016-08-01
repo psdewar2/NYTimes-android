@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NYTimes-android</string>
+    <string name="app_name">NYTimes</string>
     <string name="action_settings">Settings</string>
     <string name="hint">Find article...</string>
     <string name="search">Search</string>
