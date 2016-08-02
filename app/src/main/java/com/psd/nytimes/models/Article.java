@@ -4,7 +4,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by PSD on 7/25/16.
@@ -12,7 +16,7 @@ import java.util.ArrayList;
 @org.parceler.Parcel
 public class Article {
 
-    String webUrl, headline, thumbnail;
+    String webUrl, headline, thumbnail, publishedDate;
 
     // empty constructor needed by the Parceler library
     public Article () {}
@@ -29,6 +33,8 @@ public class Article {
         return thumbnail;
     }
 
+    public String getPublishedDate() { return publishedDate; }
+
     public Article(JSONObject jsonObject) {
         try {
             this.webUrl = jsonObject.getString("web_url");
@@ -41,7 +47,14 @@ public class Article {
             } else {
                 this.thumbnail = "";
             }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+            Date date = sdf.parse(jsonObject.getString("pub_date"));
+            SimpleDateFormat sdf2 = new SimpleDateFormat("EE, MMM d", Locale.US);
+            this.publishedDate = sdf2.format(date);
         } catch(JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }

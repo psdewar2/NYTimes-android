@@ -19,8 +19,8 @@ Completed user stories:
  * [x] Optional: Users can share article links with friends or email it to themselves.
  * [x] Optional: SettingsActivity is replaced with a lightweight modal overlay.
  * [x] Optional: UI is improved through styling and coloring.
- * [] Stretch: RecyclerView is used with the StaggeredGridLayoutManager to improve displaying the grid of image results.
- * [] Stretch: RecyclerView is made heterogenous for different news articles that only have text or have text with thumbnails.
+ * [x] Stretch: RecyclerView is used with the StaggeredGridLayoutManager to improve displaying the grid of image results.
+ * [x] Stretch: RecyclerView is made heterogenous for different news articles that only have text or have text with thumbnails.
  * [x] Stretch: ButterKnife annotation library is applied to reduce view boilerplate.
  * [x] Stretch: Parceler is used to make Article objects parcelable instead of serializable.
  * [] Stretch: All icon drawables and other static image assets are replaced with vector drawables where appropriate.

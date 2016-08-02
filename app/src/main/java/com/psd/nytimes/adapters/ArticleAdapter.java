@@ -37,11 +37,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         articleList = articles;
     }
 
-    //item_article.xml
-    public static class ArticleViewHolder extends RecyclerView.ViewHolder {
+    //item_article_custom.xml
+    public static class CustomArticleViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.articleImageView) ImageView articleImageView;
+        @BindView(R.id.tvPubDate) TextView tvPubDate;
         @BindView(R.id.tvTitle) TextView tvTitle;
-        public ArticleViewHolder(View view) {
+        public CustomArticleViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             view.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +86,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             default:
-                viewHolder = new ArticleViewHolder(inflater.inflate(R.layout.item_article, parent, false));
+                viewHolder = new CustomArticleViewHolder(inflater.inflate(R.layout.item_article_custom, parent, false));
                 break;
         }
         return viewHolder;
@@ -97,15 +98,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Article article = articleList.get(position);
         switch (holder.getItemViewType()) {
             default:
-                ArticleViewHolder aVH = (ArticleViewHolder) holder;
-                aVH.articleImageView.setImageResource(0);
-                aVH.tvTitle.setText(article.getHeadline());
+                CustomArticleViewHolder cAVH = (CustomArticleViewHolder) holder;
+                cAVH.articleImageView.setImageResource(0);
+                cAVH.tvPubDate.setText(article.getPublishedDate());
+                cAVH.tvTitle.setText(article.getHeadline());
 
                 //populate thumbnail by remotely downloading image
                 String thumbnail = article.getThumbnail();
                 Log.d("thumbnail url", thumbnail);
                 if (!TextUtils.isEmpty(thumbnail)) {
-                    Picasso.with(getContext()).load(thumbnail).into(aVH.articleImageView);
+                    Picasso.with(getContext()).load(thumbnail).into(cAVH.articleImageView);
                 }
                 break;
         }

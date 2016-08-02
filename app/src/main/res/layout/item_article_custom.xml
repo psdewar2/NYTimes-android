@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardCornerRadius="8dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_marginBottom="16dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/articleImageView"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"/>
+        <TextView
+            android:id="@+id/tvPubDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="June 31"
+            android:textSize="12sp"
+            android:textColor="@android:color/holo_purple"
+            android:layout_below="@+id/articleImageView"
+            android:padding="4dp" />
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Candidates for the Harvard Board of Overseers"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:layout_below="@+id/tvPubDate"
+            android:padding="4dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/holo_purple"
+            android:maxLines="3"
+            android:ellipsize="end"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+
+

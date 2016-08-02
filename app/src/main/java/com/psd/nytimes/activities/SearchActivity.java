@@ -9,9 +9,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -55,9 +55,9 @@ public class SearchActivity extends AppCompatActivity {
 
         articles = new ArrayList<>();
 
-        //setting up recyclerview with adapter
+        //setting up RecyclerView with adapter
         articleAdapter = new ArticleAdapter(this, articles);
-        final GridLayoutManager glm = new GridLayoutManager(this, 3);
+        final StaggeredGridLayoutManager glm = new StaggeredGridLayoutManager(3, 1);
         rvArticles.setLayoutManager(glm);
         rvArticles.setHasFixedSize(true);
         rvArticles.setAdapter(articleAdapter);
