@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -67,14 +66,11 @@ public class SearchActivity extends AppCompatActivity {
                 fetchArticles(mainQuery, page);
             }
         });
-        articleAdapter.setOnItemClickListener(new ArticleAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View itemView, int position) {
-                Intent i = new Intent(SearchActivity.this, ArticleActivity.class);
-                Article article = articles.get(position);
-                i.putExtra("article", Parcels.wrap(article));
-                startActivity(i);
-            }
+        articleAdapter.setOnItemClickListener((itemView, position) -> {
+            Intent i = new Intent(SearchActivity.this, ArticleActivity.class);
+            Article article = articles.get(position);
+            i.putExtra("article", Parcels.wrap(article));
+            startActivity(i);
         });
     }
 
@@ -98,9 +94,7 @@ public class SearchActivity extends AppCompatActivity {
                 // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
                 // see https://code.google.com/p/android/issues/detail?id=24599
                 searchView.clearFocus();
-
                 return true;
-
             }
 
             @Override
@@ -209,10 +203,4 @@ public class SearchActivity extends AppCompatActivity {
         return false;
     }
 
-    /* Passing Data to Activity
-     * 1. Define an interface with methods that can be invoked to pass data result to the activity
-     * 2. Setup a view event which invokes the custom listener passing data through the method
-     * 3. Implement the interface in the Activity defining behavior for when the event is triggered
-     * NOTE: because data is being passed into and retrieved from SharedPreferences this is currently unnecessary
-     */
 }

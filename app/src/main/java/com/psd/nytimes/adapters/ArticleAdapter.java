@@ -45,12 +45,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public CustomArticleViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mClickListener != null) {
-                        mClickListener.onItemClick(v, getLayoutPosition());
-                    }
+            view.setOnClickListener(v -> {
+                if (mClickListener != null) {
+                    mClickListener.onItemClick(v, getLayoutPosition());
                 }
             });
         }
