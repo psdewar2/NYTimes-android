@@ -1,5 +1,7 @@
 package com.psd.nytimes.models;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +54,7 @@ public class Article {
             Date date = sdf.parse(jsonObject.getString("pub_date"));
             SimpleDateFormat sdf2 = new SimpleDateFormat("EE, MMM d", Locale.US);
             this.publishedDate = sdf2.format(date);
+            Log.d("publishedDate", this.publishedDate);
         } catch(JSONException e) {
             e.printStackTrace();
         } catch (ParseException e) {

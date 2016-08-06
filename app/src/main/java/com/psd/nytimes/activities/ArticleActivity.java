@@ -1,36 +1,32 @@
 package com.psd.nytimes.activities;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.psd.nytimes.R;
+import com.psd.nytimes.databinding.ActivityArticleBinding;
 import com.psd.nytimes.models.Article;
 
 import org.parceler.Parcels;
 
 public class ArticleActivity extends AppCompatActivity {
-    Toolbar toolbar;
-    WebView wvArticle;
-
+    private ActivityArticleBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_article);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_article);
         Article article = Parcels.unwrap(getIntent().getParcelableExtra("article"));
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.toolbar);
 
-        wvArticle = (WebView) findViewById(R.id.wvArticle);
-
-        wvArticle.setWebViewClient(new WebViewClient() {
+        binding.wvArticle.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
@@ -39,7 +35,7 @@ public class ArticleActivity extends AppCompatActivity {
         });
 
         //can't just loadUrl to house the webview itself
-        wvArticle.loadUrl(article.getWebUrl());
+        binding.wvArticle.loadUrl(article.getWebUrl());
     }
 
     @Override
@@ -54,7 +50,7 @@ public class ArticleActivity extends AppCompatActivity {
         // pass in the URL currently being used by the WebView
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("*/*");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, wvArticle.getUrl());
+        shareIntent.putExtra(Intent.EXTRA_TEXT, binding.wvArticle.getUrl());
 
         shareAction.setShareIntent(shareIntent);
 
