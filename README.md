@@ -24,8 +24,8 @@ Completed user stories:
  * [x] Stretch: ButterKnife annotation library is applied to reduce view boilerplate.
  * [x] Stretch: Parceler is used to make Article objects parcelable instead of serializable.
  * [] Stretch: All icon drawables and other static image assets are replaced with vector drawables where appropriate.
- * [] Stretch: Data binding support module is leveraged to bind data into one or more activity layout templates.
- * [] Stretch: Picasso is replaced with Glide for more efficient image rendering.
+ * [x] Stretch: Data binding support module is leveraged to bind data into one or more activity layout templates.
+ * [x] Stretch: Picasso is replaced with Glide for more efficient image rendering.
  * [] Stretch: Retrolambda expressions are used to cleanup event handling blocks.
  * [] Stretch: GSON is leveraged to streamline the parsing of JSON data.
  * [] Stretch: Android Async HTTP is replaced with Retrofit.
